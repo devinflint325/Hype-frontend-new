@@ -5,6 +5,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+env:
+  # Silences the Node 20 deprecation warning
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -13,6 +17,17 @@ jobs:
       packages: write
 
     steps:
+      - name: Free Disk Space & Add Memory Swap
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: false
+          swap-storage: true
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -38,6 +53,6 @@ jobs:
             ghcr.io/devinflint325/hype-frontend-new:latest
             ghcr.io/devinflint325/hype-frontend-new:${{ github.sha }}
           build-args: |
-            NODE_OPTIONS=--max-old-space-size=4096
+            NODE_OPTIONS=--max-old-space-size=6144
             VITE_API_URL=https://api.revolt.chat
             VITE_WS_URL=wss://ws.revolt.chat
