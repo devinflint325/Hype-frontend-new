@@ -36,3 +36,5 @@ jobs:
             ghcr.io/devinflint325/hype-frontend-new:${{ github.sha }}
           build-args: |
             NODE_OPTIONS=--max-old-space-size=4096
+            VITE_API_URL=https://api.revolt.chat
+            VITE_WS_URL=wss://ws.revolt.chat
