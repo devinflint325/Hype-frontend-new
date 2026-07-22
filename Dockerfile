@@ -1,4 +1,4 @@
-# ============================================
+﻿# ============================================
 # Stage 1: Build the web client
 # ============================================
 FROM node:24-alpine AS builder
@@ -22,7 +22,7 @@ COPY packages/client/panda.config.ts packages/client/
 RUN pnpm install --frozen-lockfile
 
 # Build sub-dependencies (stoat.js, livekit-components, lingui plugins, panda css etc)
-RUN pnpm --filter stoat.js build && \
+RUN pnpm --filter "@lingui-solid/*" build && pnpm --filter stoat.js build && \
   pnpm --filter solid-livekit-components build && \
   pnpm --filter @lingui-solid/babel-plugin-lingui-macro build && \
   pnpm --filter @lingui-solid/babel-plugin-extract-messages build && \
@@ -76,3 +76,4 @@ ENV VITE_GIFBOX_URL=""
 ENV VITE_RNNOISE_WORKLET_CDN_URL=""
 
 CMD ["npm", "start"]
+
