@@ -19,7 +19,7 @@ COPY packages/ packages/
 COPY packages/client/panda.config.ts packages/client/
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Build sub-dependencies (stoat.js, livekit-components, lingui plugins, panda css etc)
 RUN pnpm --filter "@lingui-solid/*" build && pnpm --filter stoat.js build && \
@@ -76,5 +76,6 @@ ENV VITE_GIFBOX_URL=""
 ENV VITE_RNNOISE_WORKLET_CDN_URL=""
 
 CMD ["npm", "start"]
+
 
 
