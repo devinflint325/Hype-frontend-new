@@ -1,7 +1,7 @@
 ﻿# ============================================
 # Stage 1: Build the web client
 # ============================================
-FROM node:24-alpine AS builder
+FROM node:20-alpine AS builder
 
 RUN apk add --no-cache git python3 make g++
 
@@ -52,7 +52,7 @@ RUN pnpm --filter client exec vite build
 # ============================================
 # Stage 2: Minimal runtime image
 # ============================================
-FROM node:24-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -76,4 +76,5 @@ ENV VITE_GIFBOX_URL=""
 ENV VITE_RNNOISE_WORKLET_CDN_URL=""
 
 CMD ["npm", "start"]
+
 
